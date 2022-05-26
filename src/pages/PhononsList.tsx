@@ -12,6 +12,7 @@ import CreatePhononButton from "../components/CreatePhononButton";
 import PhononListItem from "../components/PhononListItem";
 import RedeemPhononButton from "../components/RedeemPhononButton";
 import SendPhononButton from "../components/SendPhononButton";
+import ShowQRButton from "../components/ShowQRButton";
 import { NETWORKS } from "../constants/networks";
 import { useFetchPhononsQuery } from "../store/api";
 import { weiToEth } from "../utils/denomination";
@@ -54,6 +55,7 @@ const PhononsList: React.FC = () => {
         <IonButtons slot="secondary">
           <SendPhononButton />
         </IonButtons>
+        <ShowQRButton />
         <IonButtons slot="end">
           <RedeemPhononButton />
         </IonButtons>

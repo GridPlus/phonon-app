@@ -21,6 +21,7 @@ import CreatePhononPage from "./pages/CreatePhononPage";
 import NetworkList from "./pages/NetworkList";
 import PhononsList from "./pages/PhononsList";
 import RedeemPhononPage from "./pages/RedeemPhononPage";
+import SendPhononPage from "./pages/SendPhononPage";
 import SessionsList from "./pages/SessionsList";
 /* Theme variables */
 import "./theme/variables.css";
@@ -51,6 +52,11 @@ const App: React.FC = () => {
               exact
               path="/:sessionId/:networkId/redeem"
               component={RedeemPhononPage}
+            />
+            <Route
+              exact
+              path="/:sessionId/:networkId/send"
+              component={SendPhononPage}
             />
           </Layout>
         </IonRouterOutlet>
