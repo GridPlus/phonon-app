@@ -30,6 +30,7 @@ const PhononListItem: React.FC<{ phonon: PhononDTO }> = ({ phonon }) => {
           {chain.ticker}
         </h2>
         <p>{abbreviateHash(phonon.PubKey)}</p>
+        <p>CHAIN ID: {phonon.ChainID}</p>
       </IonLabel>
     </IonItem>
   );

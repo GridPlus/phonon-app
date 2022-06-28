@@ -56,6 +56,7 @@ export type PhononDTO = {
   ExtendedSchemaVersion: number;
   Denomination: string;
   CurrencyType: number;
+  ChainID: number;
 };
 
 export type RedeemPhononDTO = {

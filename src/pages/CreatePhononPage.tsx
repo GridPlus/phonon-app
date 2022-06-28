@@ -32,7 +32,7 @@ const CreatePhononPage: React.FC = () => {
   const [isMassCreating, setIsMassCreating] = useState(false);
   const [initDeposit] = useInitDepositMutation();
   const [finalizeDeposit] = useFinalizeDepositMutation();
-  const { chain } = useChain();
+  const { chain, chainId } = useChain();
 
   const onSubmitSuggested = (data: CreatePhononFormSuggestedValues) =>
     onSubmit(makeChange(parseFloat(data.amount)));
@@ -66,8 +66,7 @@ const CreatePhononPage: React.FC = () => {
           // @ts-expect-error - window
           const provider = new ethers.providers.Web3Provider(window.ethereum);
           await provider.send("eth_requestAccounts", []);
-          const network = await provider.getNetwork();
-          const ChainID = network.chainId;
+          const ChainID = chainId;
           const signer = provider.getSigner();
           await Promise.all(
             payload.map(async (phonon) => {
@@ -78,6 +77,7 @@ const CreatePhononPage: React.FC = () => {
                 .sendTransaction({ to, value })
                 .then((response) => {
                   if (response) {
+                    console.log(response);
                     const Phonon = { ...phonon, ChainID };
                     const payload = [
                       {

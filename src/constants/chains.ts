@@ -12,33 +12,17 @@ type Chain = {
   baseUrl: string;
   isTestnet: boolean;
 };
-
-// export const NETWORKS: Network[] = [
-//   {
-//     icon: faQuestionCircle,
-//     ticker: "N/A",
-//     name: "None",
-//     textColor: "text-black",
-//     symbol: "$",
-//     chainId: NaN,
-//   },
-//   {
-//     icon: faBtc,
-//     ticker: "BTC",
-//     name: "Bitcoin",
-//     textColor: "text-yellow-200",
-//     symbol: "฿",
-//     chainId: NaN,
-//   },
-//   {
-//     icon: faEthereum,
-//     ticker: "ETH",
-//     name: "Ethereum",
-//     textColor: "text-indigo-300",
-//     symbol: "Ξ",
-//     chainId: 1,
-//   },
-// ];
+export const DEFAULT_CHAIN = {
+  apiRoute: "api?module=contract&action=getabi",
+  baseUrl: "https://api.etherscan.io",
+  icon: faEthereum,
+  ticker: "ETH",
+  name: "Ethereum",
+  textColor: "text-indigo-300",
+  symbol: "Ξ",
+  CurrencyType: 2,
+  isTestnet: false,
+};
 
 export const CHAINS: { [key: string]: Chain } = {
   "1": {

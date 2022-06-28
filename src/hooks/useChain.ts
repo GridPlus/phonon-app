@@ -8,7 +8,7 @@ const useChain = () => {
   const isChainIdValid = CHAINS[_chainId] !== undefined;
   if (isChainIdValid) {
     const chain = CHAINS[_chainId];
-    if (chain) return { chain };
+    if (chain) return { chain, chainId };
   }
   throw Error("No chain found");
 };

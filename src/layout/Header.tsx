@@ -7,6 +7,7 @@ import {
 } from "@ionic/react";
 import React from "react";
 import icon from "../assets/icon.svg";
+import { ConnectButton } from "../components/ConnectButton";
 import { MetaMaskAuth } from "../components/MetaMaskAuth";
 
 const Header: React.FC = () => {
@@ -15,6 +16,7 @@ const Header: React.FC = () => {
       <IonToolbar>
         <IonButtons slot="start">
           <IonBackButton defaultHref="" />
+          <ConnectButton />
         </IonButtons>
         <IonTitle>
           <div className="flex flex-row content-center justify-center">

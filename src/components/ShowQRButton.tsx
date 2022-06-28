@@ -58,12 +58,14 @@ export default function ReceiveButton() {
       </IonButton>
       <IonModal isOpen={isModalVisible}>
         <div className="flex flex-col content-center justify-evenly h-full p-10">
-          <div className="mx-auto">
-            <p className="mb-2 text-xs font-bold text-center text-gray-500 uppercase">
-              Connecting to Phonon Network
-            </p>
-            <IonSpinner />
-          </div>
+          {isConnecting ? (
+            <div className="mx-auto">
+              <p className="mb-2 text-xs font-bold text-center text-gray-500 uppercase">
+                Connecting to Phonon Network
+              </p>
+              <IonSpinner />
+            </div>
+          ) : null}
           <div className="mx-auto">
             <p className="mb-2 text-xs font-bold text-center text-gray-500 uppercase">
               Share Code with Sender

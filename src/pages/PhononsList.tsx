@@ -13,42 +13,22 @@ import PhononListItem from "../components/PhononListItem";
 import RedeemPhononButton from "../components/RedeemPhononButton";
 import SendPhononButton from "../components/SendPhononButton";
 import ShowQRButton from "../components/ShowQRButton";
-import { CHAINS } from "../constants/chains";
 import { useFetchPhononsQuery } from "../store/api";
-import { weiToEth } from "../utils/denomination";
-import { reduceDenominations, sortPhonon } from "../utils/math";
 
 const PhononsList: React.FC = () => {
-  const { sessionId, networkId } = useParams<{
-    sessionId: string;
-    networkId: string;
-  }>();
+  const { sessionId } = useParams<{ sessionId: string }>();
   const { data, refetch, isLoading, isFetching } = useFetchPhononsQuery({
     sessionId,
   });
-  const network = CHAINS[parseInt(networkId)];
 
   function refresh(event: CustomEvent<any>) {
     refetch();
     event.detail.complete();
   }
 
-  const total =
-    data
-      ?.filter((p) => p.CurrencyType === parseInt(networkId))
-      .map((p) => p.Denomination)
-      .reduce(reduceDenominations, "0") ?? "0";
-
   return (
     <IonContent>
-      <div className="mt-2 text-center">
-        <p className="text-md font-extrabold text-zinc-500">WALLET</p>
-        <p className="text-xl mb-5">
-          {weiToEth(total)} {network?.symbol}
-        </p>
-      </div>
-
-      <div className="flex mb-5 justify-evenly">
+      <div className="flex my-2 justify-evenly">
         <IonButtons slot="primary">
           <CreatePhononButton />
         </IonButtons>
@@ -75,12 +55,9 @@ const PhononsList: React.FC = () => {
             <IonRefresherContent></IonRefresherContent>
           </IonRefresher>
           <IonList>
-            {data
-              ?.filter((item) => item.CurrencyType === parseInt(networkId))
-              .sort(sortPhonon)
-              .map((item) => (
-                <PhononListItem phonon={item} key={item.PubKey} />
-              ))}
+            {data?.map((item) => (
+              <PhononListItem phonon={item} key={item.PubKey} />
+            ))}
           </IonList>
         </IonContent>
       )}

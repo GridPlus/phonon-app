@@ -4,14 +4,11 @@ import React from "react";
 import { useParams } from "react-router";
 
 export default function CreatePhononButton() {
-  const { sessionId, networkId } = useParams<{
-    sessionId: string;
-    networkId: string;
-  }>();
+  const { sessionId } = useParams<{ sessionId: string }>();
   const router = useIonRouter();
 
   const goToCreatePage = () => {
-    router.push(`/${sessionId}/${networkId}/create`);
+    router.push(`/${sessionId}/create`);
   };
 
   return (

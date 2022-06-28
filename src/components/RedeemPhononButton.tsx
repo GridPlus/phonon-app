@@ -4,14 +4,11 @@ import React from "react";
 import { useParams } from "react-router";
 
 export default function RedeemPhononButton() {
-  const { sessionId, networkId } = useParams<{
-    sessionId: string;
-    networkId: string;
-  }>();
+  const { sessionId } = useParams<{ sessionId: string }>();
   const router = useIonRouter();
 
   const goToRedeemPage = () => {
-    router.push(`/${sessionId}/${networkId}/redeem`);
+    router.push(`/${sessionId}/redeem`);
   };
 
   return (

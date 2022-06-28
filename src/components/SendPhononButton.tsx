@@ -4,14 +4,11 @@ import React from "react";
 import { useParams } from "react-router";
 
 export default function SendPhononButton() {
-  const { sessionId, networkId } = useParams<{
-    sessionId: string;
-    networkId: string;
-  }>();
+  const { sessionId } = useParams<{ sessionId: string }>();
   const router = useIonRouter();
 
   const goToSendPage = () => {
-    router.push(`/${sessionId}/${networkId}/send`);
+    router.push(`/${sessionId}/send`);
   };
   return (
     <>
