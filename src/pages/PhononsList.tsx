@@ -13,7 +13,7 @@ import PhononListItem from "../components/PhononListItem";
 import RedeemPhononButton from "../components/RedeemPhononButton";
 import SendPhononButton from "../components/SendPhononButton";
 import ShowQRButton from "../components/ShowQRButton";
-import { NETWORKS } from "../constants/networks";
+import { CHAINS } from "../constants/chains";
 import { useFetchPhononsQuery } from "../store/api";
 import { weiToEth } from "../utils/denomination";
 import { reduceDenominations, sortPhonon } from "../utils/math";
@@ -26,7 +26,7 @@ const PhononsList: React.FC = () => {
   const { data, refetch, isLoading, isFetching } = useFetchPhononsQuery({
     sessionId,
   });
-  const network = NETWORKS[parseInt(networkId)];
+  const network = CHAINS[parseInt(networkId)];
 
   function refresh(event: CustomEvent<any>) {
     refetch();

@@ -10,23 +10,22 @@ import {
   RedeemPhononFormSuggested,
   RedeemPhononFormSuggestedValues,
 } from "../components/RedeemPhononFormSuggested";
-import useNetwork from "../hooks/useNetwork";
+import useChain from "../hooks/useChain";
 import { usePhonons } from "../hooks/usePhonons";
 import { useRedeemPhononMutation } from "../store/api";
 import { RedeemPhononDTO } from "../types";
 import { makeChangeWithPhonons } from "../utils/math";
 
 const RedeemPhononPage: React.FC = () => {
-  const { sessionId, networkId } = useParams<{
+  const { sessionId } = useParams<{
     sessionId: string;
-    networkId: string;
   }>();
   const router = useIonRouter();
   const [isCustomizing, setIsCustomizing] = useState(false);
   const [isPending, setIsPending] = useState(false);
   const [RedeemAddress, setRedeemAddress] = useState("");
   const [redeemPhonon] = useRedeemPhononMutation();
-  const { network } = useNetwork();
+  const { chain } = useChain();
   const { phonons } = usePhonons();
 
   const getAddress = async () => {
@@ -46,7 +45,7 @@ const RedeemPhononPage: React.FC = () => {
     setIsPending(true);
     if (payload.length) {
       redeemPhonon({ payload, sessionId })
-        .then(() => router.push(`/${sessionId}/${networkId}/`))
+        .then(() => router.push(`/${sessionId}/`))
         .catch(console.error)
         .finally(() => setIsPending(false));
     }
@@ -83,7 +82,7 @@ const RedeemPhononPage: React.FC = () => {
   return (
     <div className="flex flex-col content-center justify-start h-full gap-2">
       <p className="text-xl font-bold text-center text-gray-300 uppercase">
-        Redeem {network.ticker}
+        Redeem {chain.ticker}
       </p>
       <input
         className="text-bold p-2 text-xl bg-zinc-800 shadow-inner w-auto"

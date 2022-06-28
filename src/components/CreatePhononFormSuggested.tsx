@@ -1,7 +1,7 @@
 import { IonButton } from "@ionic/react";
 import React from "react";
 import { useForm, useWatch } from "react-hook-form";
-import useNetwork from "../hooks/useNetwork";
+import useChain from "../hooks/useChain";
 import { makeChange } from "../utils/math";
 
 export type CreatePhononFormSuggestedValues = {
@@ -13,7 +13,7 @@ export const CreatePhononFormSuggested: React.FC<{
   onSubmit: any;
   isPending: boolean;
 }> = ({ handleCustomize, onSubmit, isPending }) => {
-  const { network } = useNetwork();
+  const { chain } = useChain();
 
   const { register, handleSubmit, control } =
     useForm<CreatePhononFormSuggestedValues>();
@@ -42,7 +42,7 @@ export const CreatePhononFormSuggested: React.FC<{
             key={denom.denomination}
             className="text-md text-gray-200 font-bold text-center"
           >
-            {denom.amount}x {network.symbol}
+            {denom.amount}x {chain.symbol}
             {denom.denomination}
           </p>
         ))}

@@ -14,7 +14,7 @@ import {
   CreatePhononFormSuggested,
   CreatePhononFormSuggestedValues,
 } from "../components/CreatePhononFormSuggested";
-import useNetwork from "../hooks/useNetwork";
+import useChain from "../hooks/useChain";
 import {
   useFinalizeDepositMutation,
   useInitDepositMutation,
@@ -23,9 +23,8 @@ import { ethToBn, ethToWei, weiToEth } from "../utils/denomination";
 import { makeChange } from "../utils/math";
 
 const CreatePhononPage: React.FC = () => {
-  const { sessionId, networkId } = useParams<{
+  const { sessionId } = useParams<{
     sessionId: string;
-    networkId: string;
   }>();
   const router = useIonRouter();
   const [isCustomizing, setIsCustomizing] = useState(false);
@@ -33,7 +32,7 @@ const CreatePhononPage: React.FC = () => {
   const [isMassCreating, setIsMassCreating] = useState(false);
   const [initDeposit] = useInitDepositMutation();
   const [finalizeDeposit] = useFinalizeDepositMutation();
-  const { network } = useNetwork();
+  const { chain } = useChain();
 
   const onSubmitSuggested = (data: CreatePhononFormSuggestedValues) =>
     onSubmit(makeChange(parseFloat(data.amount)));
@@ -57,7 +56,7 @@ const CreatePhononPage: React.FC = () => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-return
       return arr.fill(denomination);
     });
-    const CurrencyType = parseInt(networkId);
+    const CurrencyType = chain.CurrencyType;
     const payload = { CurrencyType, Denominations };
     await initDeposit({ payload, sessionId })
       .unwrap()
@@ -90,7 +89,7 @@ const CreatePhononPage: React.FC = () => {
                     finalizeDeposit({ payload, sessionId }).catch(
                       console.error
                     );
-                    router.push(`/${sessionId}/${networkId}/`);
+                    router.push(`/${sessionId}/`);
                   }
                 })
                 .catch(console.error)
@@ -117,7 +116,7 @@ const CreatePhononPage: React.FC = () => {
   return (
     <div>
       <p className="text-xl font-bold text-center text-gray-300 uppercase">
-        CREATE {network.ticker} PHONON
+        CREATE {chain.ticker} PHONON
       </p>
       {isMassCreating ? (
         <>

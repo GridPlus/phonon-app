@@ -1,7 +1,7 @@
 import { IonButton } from "@ionic/react";
 import React from "react";
 import { useForm, useWatch } from "react-hook-form";
-import useNetwork from "../hooks/useNetwork";
+import useChain from "../hooks/useChain";
 import { usePhonons } from "../hooks/usePhonons";
 import { weiToEth } from "../utils/denomination";
 import { makeChangeWithPhonons, reduceDenominations } from "../utils/math";
@@ -15,7 +15,7 @@ export const RedeemPhononFormSuggested: React.FC<{
   onSubmit: any;
   isPending: boolean;
 }> = ({ handleCustomize, onSubmit, isPending }) => {
-  const { network } = useNetwork();
+  const { chain } = useChain();
 
   const { register, handleSubmit, control } =
     useForm<RedeemPhononFormSuggestedValues>();
@@ -51,7 +51,7 @@ export const RedeemPhononFormSuggested: React.FC<{
           key={phonon.PubKey}
           className="text-md text-gray-200 font-bold text-center"
         >
-          {weiToEth(phonon.Denomination)} {network.symbol}
+          {weiToEth(phonon.Denomination)} {chain.symbol}
         </p>
       ))}
       <div className="pinned">

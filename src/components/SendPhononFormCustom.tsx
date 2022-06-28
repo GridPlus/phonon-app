@@ -2,7 +2,7 @@ import { IonButton } from "@ionic/react";
 import clsx from "clsx";
 import React from "react";
 import { useForm, useWatch } from "react-hook-form";
-import useNetwork from "../hooks/useNetwork";
+import useChain from "../hooks/useChain";
 import { usePhonons } from "../hooks/usePhonons";
 import { weiToEth } from "../utils/denomination";
 import { reduceDenominations } from "../utils/math";
@@ -27,7 +27,7 @@ export const SendPhononFormCustom: React.FC<{
     name: "phononsToSend",
     control,
   });
-  const { network } = useNetwork();
+  const { chain } = useChain();
   const { phonons } = usePhonons();
 
   const getTotal = () => {
@@ -81,7 +81,7 @@ export const SendPhononFormCustom: React.FC<{
                 "text-bold p-2 text-xl bg-zinc-800 shadow-inner w-1/3"
               )}
             >
-              {network.symbol} {weiToEth(phonon.Denomination)}
+              {chain.symbol} {weiToEth(phonon.Denomination)}
             </div>
           </div>
         ))}

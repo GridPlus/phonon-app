@@ -14,8 +14,8 @@ export type Phonon = {
   value: number;
 };
 
-export type NetworkValue = {
-  networkId: number;
+export type ChainValue = {
+  chainId: number;
   value: number | undefined;
 };
 

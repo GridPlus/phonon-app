@@ -2,27 +2,27 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IonAvatar, IonItem, IonLabel, IonText } from "@ionic/react";
 import React from "react";
 import { useParams } from "react-router";
-import { NETWORKS } from "../constants/networks";
+import { CHAINS } from "../constants/chains";
 import "../index.css";
-import { NetworkValue } from "../types";
+import { ChainValue } from "../types";
 
-const CustomizationForm: React.FC<NetworkValue> = ({ networkId, value }) => {
+const CustomizationForm: React.FC<ChainValue> = ({ chainId, value }) => {
   const { sessionId } = useParams<{ sessionId: string }>();
-  const network = NETWORKS[networkId];
+  const chain = CHAINS[chainId];
 
   return (
-    <IonItem routerLink={`/${sessionId}/${networkId}/`}>
+    <IonItem routerLink={`/${sessionId}/${chainId}/`}>
       <IonAvatar slot="start">
         <FontAwesomeIcon
-          icon={network.icon}
+          icon={chain.icon}
           size="2x"
-          className={network.textColor}
+          className={chain.textColor}
         />
       </IonAvatar>
       <IonLabel>
         <IonText color="light">
           <h1 className="text-xl">
-            {value} {network.ticker}
+            {value} {chain.ticker}
           </h1>
         </IonText>
       </IonLabel>

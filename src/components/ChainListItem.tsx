@@ -8,33 +8,33 @@ import {
 } from "@ionic/react";
 import React from "react";
 import { useParams } from "react-router";
-import { NETWORKS } from "../constants/networks";
+import { CHAINS } from "../constants/chains";
 import "../index.css";
-import { NetworkValue } from "../types";
+import { ChainValue } from "../types";
 import { weiToEth } from "../utils/denomination";
 
-const NetworkListItem: React.FC<NetworkValue & { isLoading: boolean }> = ({
-  networkId,
+const ChainListItem: React.FC<ChainValue & { isLoading: boolean }> = ({
+  chainId,
   value,
   isLoading,
 }) => {
   const { sessionId } = useParams<{ sessionId: string }>();
-  const network = NETWORKS[networkId];
+  const chain = CHAINS[chainId];
   const label = weiToEth(value?.toString() ?? "0");
 
   return (
-    <IonItem routerLink={`/${sessionId}/${networkId}/`}>
+    <IonItem routerLink={`/${sessionId}/${chainId}/`}>
       <IonAvatar slot="start">
         <FontAwesomeIcon
-          icon={network.icon}
+          icon={chain.icon}
           size="2x"
-          className={network.textColor}
+          className={chain.textColor}
         />
       </IonAvatar>
       <IonLabel>
         <IonText color="light">
           <h1 className="text-xl">
-            {isLoading ? <IonSpinner /> : label} {network.ticker}
+            {isLoading ? <IonSpinner /> : label} {chain.ticker}
           </h1>
         </IonText>
       </IonLabel>
@@ -42,4 +42,4 @@ const NetworkListItem: React.FC<NetworkValue & { isLoading: boolean }> = ({
   );
 };
 
-export default NetworkListItem;
+export default ChainListItem;

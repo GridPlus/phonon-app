@@ -10,17 +10,15 @@ import {
   SendPhononFormSuggestedValues,
   SendPhononFormSuggested,
 } from "../components/SendPhononFormSuggested";
-
-import useNetwork from "../hooks/useNetwork";
+import useChain from "../hooks/useChain";
 import { usePhonons } from "../hooks/usePhonons";
 import { useConnectMutation, useSendPhononMutation } from "../store/api";
 import { SendPhononDTO } from "../types";
 import { makeChangeWithPhonons } from "../utils/math";
 
 const SendPhononPage: React.FC = () => {
-  const { sessionId, networkId } = useParams<{
+  const { sessionId } = useParams<{
     sessionId: string;
-    networkId: string;
   }>();
   const router = useIonRouter();
   const [isCustomizing, setIsCustomizing] = useState(false);
@@ -28,7 +26,7 @@ const SendPhononPage: React.FC = () => {
   const [sendAddress, setSendAddress] = useState("");
   const [sendPhonon] = useSendPhononMutation();
   const [connect] = useConnectMutation();
-  const { network } = useNetwork();
+  const { chain } = useChain();
   const { phonons } = usePhonons();
 
   const getAddress = async () => {
@@ -53,7 +51,7 @@ const SendPhononPage: React.FC = () => {
         })
         .catch(console.error);
       sendPhonon({ payload, sessionId })
-        .then(() => router.push(`/${sessionId}/${networkId}/`))
+        .then(() => router.push(`/${sessionId}/`))
         .catch(console.error)
         .finally(() => setIsPending(false));
     }
@@ -83,7 +81,7 @@ const SendPhononPage: React.FC = () => {
   return (
     <div className="flex flex-col content-center justify-start h-full gap-2">
       <p className="text-xl font-bold text-center text-gray-300 uppercase">
-        Send {network.ticker}
+        Send {chain.ticker}
       </p>
       <input
         className="text-bold p-2 text-xl bg-zinc-800 shadow-inner w-auto"

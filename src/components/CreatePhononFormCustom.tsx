@@ -4,7 +4,7 @@ import { add, closeCircleOutline } from "ionicons/icons";
 import React from "react";
 import { useFieldArray, useForm, useWatch } from "react-hook-form";
 import { denominations } from "../constants/denominations";
-import useNetwork from "../hooks/useNetwork";
+import useChain from "../hooks/useChain";
 import { rollupChange } from "../utils/math";
 import { isValidPhononDenomination } from "../utils/validation";
 
@@ -40,7 +40,7 @@ export const CreatePhononFormCustom: React.FC<{
     control,
   });
   const total = rollupChange(formValues);
-  const { network } = useNetwork();
+  const { chain } = useChain();
 
   const handleAddDenomination = (formValues) => {
     const unusedDenominations = denominations.filter(
@@ -92,7 +92,7 @@ export const CreatePhononFormCustom: React.FC<{
                       (d) => d.denomination === denomination
                     )}
                   >
-                    {network.symbol} {denomination}
+                    {chain.symbol} {denomination}
                   </option>
                 ))}
               </select>
