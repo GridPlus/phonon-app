@@ -106,12 +106,12 @@ export default function CreatePhononModal({
 
   return (
     <IonModal isOpen={isModalVisible} onDidDismiss={hideModal}>
-      <div className="flex flex-col content-center justify-start gap-2">
+      <div className="flex flex-col content-center justify-center h-full mx-10">
         <p className="text-xl font-bold text-center text-gray-300 uppercase">
-          Create {chain.ticker}
+          Create {chain.name} Phonon
         </p>
         <form
-          className="flex flex-col content-center justify-start h-full gap-2 p-2"
+          className="flex flex-col mt-10 gap-10"
           onSubmit={handleSubmit(onSubmitSingle)}
         >
           <input
@@ -134,20 +134,27 @@ export default function CreatePhononModal({
             </p>
           )}
 
-          <div className="pinned">
-            <IonButton
-              key="submit"
-              size="large"
-              type="submit"
-              fill="solid"
-              expand="full"
-              color="primary"
-              className="shadow-lg shadow-teal-300/40"
-              disabled={isPending}
-            >
-              Create
-            </IonButton>
-          </div>
+          <IonButton
+            key="submit"
+            size="large"
+            type="submit"
+            fill="solid"
+            expand="full"
+            color="primary"
+            disabled={isPending}
+          >
+            Create
+          </IonButton>
+          <IonButton
+            key="submit"
+            size="large"
+            expand="full"
+            fill="clear"
+            color="medium"
+            onClick={hideModal}
+          >
+            CANCEL
+          </IonButton>
         </form>
       </div>
     </IonModal>

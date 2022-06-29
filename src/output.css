@@ -508,6 +508,26 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin: 0.5rem !important;
 }
 
+.m-0 {
+  margin: 0px !important;
+}
+
+.m-5 {
+  margin: 1.25rem !important;
+}
+
+.m-10 {
+  margin: 2.5rem !important;
+}
+
+.m-5 {
+  margin: 1.25rem !important;
+}
+
+.m-10 {
+  margin: 2.5rem !important;
+}
+
 .mx-auto {
   margin-left: auto !important;
   margin-right: auto !important;
@@ -523,6 +543,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-bottom: 0.5rem !important;
 }
 
+.mx-10 {
+  margin-left: 2.5rem !important;
+  margin-right: 2.5rem !important;
+}
+
 .mr-2 {
   margin-right: 0.5rem !important;
 }
@@ -535,6 +560,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-right: 0.25rem !important;
 }
 
+.mt-10 {
+  margin-top: 2.5rem !important;
+}
+
 .flex {
   display: flex !important;
 }
@@ -545,6 +574,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .h-4 {
   height: 1rem !important;
+}
+
+.h-full {
+  height: 100% !important;
 }
 
 .w-1\/3 {
@@ -606,6 +639,18 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .gap-2 {
   gap: 0.5rem !important;
+}
+
+.gap-10 {
+  gap: 2.5rem !important;
+}
+
+.gap-y-7 {
+  row-gap: 1.75rem !important;
+}
+
+.gap-y-10 {
+  row-gap: 2.5rem !important;
 }
 
 .rounded-sm {
@@ -671,12 +716,85 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(252 165 165 / var(--tw-bg-opacity)) !important;
 }
 
+.bg-zinc-800 {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(39 39 42 / var(--tw-bg-opacity)) !important;
+}
+
 .p-2 {
   padding: 0.5rem !important;
 }
 
 .p-10 {
   padding: 2.5rem !important;
+}
+
+.p-5 {
+  padding: 1.25rem !important;
+}
+
+.p-2 {
+  padding: 0.5rem !important;
+}
+
+.p-10 {
+  padding: 2.5rem !important;
+}
+
+.p-5 {
+  padding: 1.25rem !important;
+}
+
+.p-2 {
+  padding: 0.5rem !important;
+}
+
+.p-10 {
+  padding: 2.5rem !important;
+}
+
+.p-5 {
+  padding: 1.25rem !important;
+}
+
+.p-2 {
+  padding: 0.5rem !important;
+}
+
+.p-0 {
+  padding: 0px !important;
+}
+
+.p-10 {
+  padding: 2.5rem !important;
+}
+
+.p-5 {
+  padding: 1.25rem !important;
+}
+
+.p-2 {
+  padding: 0.5rem !important;
+}
+
+.p-10 {
+  padding: 2.5rem !important;
+}
+
+.p-5 {
+  padding: 1.25rem !important;
+}
+
+.p-2 {
+  padding: 0.5rem !important;
+}
+
+.p-10 {
+  padding: 2.5rem !important;
+}
+
+.p-2 {
+  padding: 0.5rem !important;
 }
 
 .text-center {
@@ -704,6 +822,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .text-lg {
   font-size: 1.125rem !important;
+  line-height: 1.75rem !important;
+}
+
+.text-xl {
+  font-size: 1.25rem !important;
   line-height: 1.75rem !important;
 }
 
@@ -780,6 +903,118 @@ Ensure the default browser behavior of the `hidden` attribute.
   color: rgb(252 165 165 / var(--tw-text-opacity)) !important;
 }
 
+.text-gray-300 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(209 213 219 / var(--tw-text-opacity)) !important;
+}
+
+.text-zinc-200 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(228 228 231 / var(--tw-text-opacity)) !important;
+}
+
+.text-gray-300 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(209 213 219 / var(--tw-text-opacity)) !important;
+}
+
+.text-zinc-200 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(228 228 231 / var(--tw-text-opacity)) !important;
+}
+
+.text-gray-300 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(209 213 219 / var(--tw-text-opacity)) !important;
+}
+
+.text-zinc-200 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(228 228 231 / var(--tw-text-opacity)) !important;
+}
+
+.text-gray-300 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(209 213 219 / var(--tw-text-opacity)) !important;
+}
+
+.text-zinc-200 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(228 228 231 / var(--tw-text-opacity)) !important;
+}
+
+.text-gray-300 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(209 213 219 / var(--tw-text-opacity)) !important;
+}
+
+.text-zinc-200 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(228 228 231 / var(--tw-text-opacity)) !important;
+}
+
+.text-gray-300 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(209 213 219 / var(--tw-text-opacity)) !important;
+}
+
+.text-zinc-200 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(228 228 231 / var(--tw-text-opacity)) !important;
+}
+
+.text-gray-300 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(209 213 219 / var(--tw-text-opacity)) !important;
+}
+
+.text-zinc-200 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(228 228 231 / var(--tw-text-opacity)) !important;
+}
+
+.text-gray-300 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(209 213 219 / var(--tw-text-opacity)) !important;
+}
+
+.text-zinc-200 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(228 228 231 / var(--tw-text-opacity)) !important;
+}
+
+.text-gray-300 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(209 213 219 / var(--tw-text-opacity)) !important;
+}
+
+.text-zinc-200 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(228 228 231 / var(--tw-text-opacity)) !important;
+}
+
+.text-gray-300 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(209 213 219 / var(--tw-text-opacity)) !important;
+}
+
+.text-zinc-200 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(228 228 231 / var(--tw-text-opacity)) !important;
+}
+
+.shadow-lg {
+  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1) !important;
+  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color) !important;
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
+}
+
+.shadow-inner {
+  --tw-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.05) !important;
+  --tw-shadow-colored: inset 0 2px 4px 0 var(--tw-shadow-color) !important;
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
+}
+
 .shadow-lg {
   --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1) !important;
   --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color) !important;
@@ -804,6 +1039,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .shadow-teal-300\/20 {
   --tw-shadow-color: rgb(94 234 212 / 0.2) !important;
+  --tw-shadow: var(--tw-shadow-colored) !important;
+}
+
+.shadow-teal-300\/40 {
+  --tw-shadow-color: rgb(94 234 212 / 0.4) !important;
   --tw-shadow: var(--tw-shadow-colored) !important;
 }
 

@@ -11,7 +11,7 @@ import RedeemPhononButton from "./RedeemPhononButton";
 import SendPhononButton from "./SendPhononButton";
 
 const PhononListItem: React.FC<{ phonon: PhononDTO }> = ({ phonon }) => {
-  const chain = useChainByCurrencyType(phonon.CurrencyType);
+  const { chain } = useChainByCurrencyType(phonon.CurrencyType);
 
   return (
     <IonItem>

@@ -5,9 +5,9 @@ const useChainByCurrencyType = (currencyType: number) => {
     ([, chain]) => chain.CurrencyType === currencyType
   );
   if (!chain) {
-    return DEFAULT_CHAIN;
+    return { chain: DEFAULT_CHAIN };
   }
-  return chain[1];
+  return { chain: chain[1] };
 };
 
 export default useChainByCurrencyType;

@@ -21,34 +21,30 @@ export default function ReceivePhononModal({ isModalVisible, hideModal }: any) {
 
   return (
     <IonModal isOpen={isModalVisible} onDidDismiss={hideModal}>
-      <div className="flex flex-col content-center justify-evenly h-full p-10">
-        <div className="mx-auto">
-          <p className="mb-2 text-xs font-bold text-center text-gray-500 uppercase">
-            Share Code with Sender
-          </p>
-          <QRCode
-            value={sessionId}
-            size={200}
-            level="H"
-            className="mx-auto"
-            includeMargin
-          />
-          <p className="mb-2 text-xs font-bold text-center text-gray-500 uppercase">
-            {sessionId}
-          </p>
-        </div>
-        <div className="flex flex-row justify-evenly">
-          <IonButton
-            key="submit"
-            fill="solid"
-            color="primary"
-            onKeyDown={handleOnKeyDown}
-            onClick={handleSubmit}
-            className="shadow-lg shadow-teal-300/40"
-          >
-            CANCEL
-          </IonButton>
-        </div>
+      <div className="flex flex-col content-center justify-center h-full mx-10 gap-10">
+        <p className="text-xl font-bold text-center text-gray-300 uppercase">
+          Share Code with Sender
+        </p>
+        <QRCode
+          value={sessionId}
+          size={200}
+          level="H"
+          className="mx-auto"
+          includeMargin
+        />
+        <p className="text-l font-bold text-center text-gray-400 uppercase">
+          {sessionId}
+        </p>
+        <IonButton
+          key="submit"
+          size="large"
+          expand="full"
+          color="dark"
+          onKeyDown={handleOnKeyDown}
+          onClick={handleSubmit}
+        >
+          OK
+        </IonButton>
       </div>
     </IonModal>
   );
