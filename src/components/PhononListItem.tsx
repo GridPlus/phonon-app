@@ -7,6 +7,8 @@ import { PhononDTO } from "../types";
 import { abbreviateHash } from "../utils/addresses";
 import { weiToEth } from "../utils/denomination";
 import { isGreaterThan } from "../utils/math";
+import RedeemPhononButton from "./RedeemPhononButton";
+import SendPhononButton from "./SendPhononButton";
 
 const PhononListItem: React.FC<{ phonon: PhononDTO }> = ({ phonon }) => {
   const chain = useChainByCurrencyType(phonon.CurrencyType);
@@ -32,6 +34,8 @@ const PhononListItem: React.FC<{ phonon: PhononDTO }> = ({ phonon }) => {
         <p>{abbreviateHash(phonon.PubKey)}</p>
         <p>CHAIN ID: {phonon.ChainID}</p>
       </IonLabel>
+      <SendPhononButton phonon={phonon} />
+      <RedeemPhononButton />
     </IonItem>
   );
 };

@@ -1,26 +1,31 @@
-import { IonButton, IonIcon, useIonRouter } from "@ionic/react";
+import { IonButton, IonIcon } from "@ionic/react";
 import { sendSharp } from "ionicons/icons";
-import React from "react";
-import { useParams } from "react-router";
+import React, { useState } from "react";
+import { useModal } from "../hooks/useModal";
+import { PhononDTO } from "../types";
+import SendPhononModal from "./SendPhononModal";
 
-export default function SendPhononButton() {
-  const { sessionId } = useParams<{ sessionId: string }>();
-  const router = useIonRouter();
+export default function SendPhononButton({ phonon }: { phonon: PhononDTO }) {
+  const { showModal, hideModal, isModalVisible } = useModal();
 
-  const goToSendPage = () => {
-    router.push(`/${sessionId}/send`);
-  };
+  const [color, setColor] = useState("medium");
+  const DEFAULT_COLOR = "medium";
+  const ACTIVE_COLOR = "primary";
+
   return (
     <>
       <IonButton
-        color="primary"
         fill="outline"
+        onMouseEnter={() => setColor(ACTIVE_COLOR)}
+        onMouseLeave={() => setColor(DEFAULT_COLOR)}
+        color={color}
+        onClick={showModal}
         slot="end"
-        onClick={goToSendPage}
       >
         <IonIcon slot="end" icon={sendSharp} />
         Send
       </IonButton>
+      <SendPhononModal {...{ isModalVisible, hideModal, phonon }} />
     </>
   );
 }

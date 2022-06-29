@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { CHAINS } from "../constants/chains";
+import { CHAINS, DEFAULT_CHAIN } from "../constants/chains";
 import { ChainContext } from "../store/ChainContext";
 
 const useChain = () => {
@@ -10,7 +10,7 @@ const useChain = () => {
     const chain = CHAINS[_chainId];
     if (chain) return { chain, chainId };
   }
-  throw Error("No chain found");
+  return { chain: DEFAULT_CHAIN, chainId: 0 };
 };
 
 export default useChain;

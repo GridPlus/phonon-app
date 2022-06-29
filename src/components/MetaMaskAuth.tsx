@@ -30,7 +30,7 @@ export const MetaMaskAuth = () => {
       ) : (
         <IonButton fill="outline" color="primary" slot="end" onClick={connect}>
           <IonIcon slot="end" icon={lockClosedOutline} />
-          Connect
+          Authenticate
         </IonButton>
       )}
     </>

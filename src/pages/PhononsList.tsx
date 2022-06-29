@@ -1,6 +1,5 @@
 import {
   IonButtons,
-  IonContent,
   IonList,
   IonRefresher,
   IonRefresherContent,
@@ -10,9 +9,8 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import CreatePhononButton from "../components/CreatePhononButton";
 import PhononListItem from "../components/PhononListItem";
-import RedeemPhononButton from "../components/RedeemPhononButton";
-import SendPhononButton from "../components/SendPhononButton";
-import ShowQRButton from "../components/ShowQRButton";
+import ReceivePhononButton from "../components/ReceivePhononButton";
+import Layout from "../layout/Layout";
 import { useFetchPhononsQuery } from "../store/api";
 
 const PhononsList: React.FC = () => {
@@ -27,18 +25,12 @@ const PhononsList: React.FC = () => {
   }
 
   return (
-    <IonContent>
+    <Layout>
       <div className="flex my-2 justify-evenly">
         <IonButtons slot="primary">
           <CreatePhononButton />
         </IonButtons>
-        <IonButtons slot="secondary">
-          <SendPhononButton />
-        </IonButtons>
-        <ShowQRButton />
-        <IonButtons slot="end">
-          <RedeemPhononButton />
-        </IonButtons>
+        <ReceivePhononButton />
       </div>
 
       {isLoading || isFetching ? (
@@ -46,7 +38,7 @@ const PhononsList: React.FC = () => {
           <IonSpinner />
         </div>
       ) : (
-        <IonContent>
+        <>
           <IonRefresher
             slot="fixed"
             onIonRefresh={refresh}
@@ -59,9 +51,9 @@ const PhononsList: React.FC = () => {
               <PhononListItem phonon={item} key={item.PubKey} />
             ))}
           </IonList>
-        </IonContent>
+        </>
       )}
-    </IonContent>
+    </Layout>
   );
 };
 

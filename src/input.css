@@ -8,3 +8,14 @@
   bottom: 10px;
   right: 0;
 }
+
+@-webkit-keyframes pulse {
+  0% { box-shadow:0 0 8px #009900, inset 0 0 8px #009900; }
+  50% { box-shadow:0 0 16px #009900, inset 0 0 14px #009900; }
+  100% { box-shadow:0 0 8px #009900, inset 0 0 8px #009900; }
+}
+.connected {
+  border-radius: 50%;
+  box-shadow: 0 0 8px #00DD00, inset 0 0 8px #00DD00;
+  -webkit-animation: pulse 2s linear 1s infinite;
+}

@@ -27,7 +27,7 @@ export const ConnectButton: React.FC = () => {
     if (isConnected) {
       return "green";
     }
-    return "red";
+    return "#990000";
   };
 
   return (
@@ -57,6 +57,7 @@ export const ConnectButton: React.FC = () => {
         slot="end"
         icon={ellipse}
         style={{ fontSize: "12px", color: getColor() }}
+        class={isConnected ? "connected" : ""}
       />
     </IonButton>
   );

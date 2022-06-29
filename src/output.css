@@ -508,14 +508,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin: 0.5rem;
 }
 
-.m-10 {
-  margin: 2.5rem;
-}
-
-.m-5 {
-  margin: 1.25rem;
-}
-
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -639,6 +631,21 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
+.bg-red-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 226 226 / var(--tw-bg-opacity));
+}
+
+.bg-slate-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(203 213 225 / var(--tw-bg-opacity));
+}
+
+.bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+}
+
 .p-2 {
   padding: 0.5rem;
 }
@@ -711,16 +718,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-indigo-300 {
   --tw-text-opacity: 1;
   color: rgb(165 180 252 / var(--tw-text-opacity));
-}
-
-.text-black {
-  --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity));
-}
-
-.text-yellow-200 {
-  --tw-text-opacity: 1;
-  color: rgb(254 240 138 / var(--tw-text-opacity));
 }
 
 .text-cyan-300 {
@@ -801,6 +798,26 @@ Ensure the default browser behavior of the `hidden` attribute.
   left: 0;
   bottom: 10px;
   right: 0;
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    box-shadow:0 0 8px #009900, inset 0 0 8px #009900;
+  }
+
+  50% {
+    box-shadow:0 0 16px #009900, inset 0 0 14px #009900;
+  }
+
+  100% {
+    box-shadow:0 0 8px #009900, inset 0 0 8px #009900;
+  }
+}
+
+.connected {
+  border-radius: 50%;
+  box-shadow: 0 0 8px #00DD00, inset 0 0 8px #00DD00;
+  -webkit-animation: pulse 2s linear 1s infinite;
 }
 
 .checked\:border-teal-600:checked {
