@@ -1,16 +1,19 @@
 import { IonBadge, IonButton, IonIcon } from "@ionic/react";
 import { lockClosedOutline, lockOpenOutline } from "ionicons/icons";
 import React, { useContext } from "react";
+import useChain from "../hooks/useChain";
 
 import { ChainContext } from "../store/ChainContext";
 
 export const MetaMaskAuth = () => {
-  const { connect, currentAccount, currentChain } = useContext(ChainContext);
+  const { connect, currentAccount } = useContext(ChainContext);
+  const { chain } = useChain();
+
   return (
     <>
-      {currentChain?.name ? (
-        <IonBadge color="primary" className="mr-2">
-          {currentChain.name}
+      {chain.name && chain.bgColor ? (
+        <IonBadge className={"mr-2 " + `${chain.bgColor}`}>
+          {chain.name}
         </IonBadge>
       ) : (
         <IonBadge color="danger" className="mr-2">

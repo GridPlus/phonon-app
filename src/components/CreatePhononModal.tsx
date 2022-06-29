@@ -1,10 +1,10 @@
-import { IonButton, IonModal, useIonRouter } from "@ionic/react";
+import { IonButton, IonModal } from "@ionic/react";
 import { ethers } from "ethers";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useParams } from "react-router";
 import { CreatePhononFormSingleValues } from "../components/CreatePhononFormSingle";
 import useChain from "../hooks/useChain";
+import { useSession } from "../hooks/useSession";
 import {
   useFinalizeDepositMutation,
   useInitDepositMutation,
@@ -19,10 +19,7 @@ export default function CreatePhononModal({
   isModalVisible: boolean;
   hideModal: () => void;
 }) {
-  const { sessionId } = useParams<{
-    sessionId: string;
-  }>();
-  const router = useIonRouter();
+  const { sessionId } = useSession();
   const [isPending, setIsPending] = useState(false);
   const [initDeposit] = useInitDepositMutation();
   const [finalizeDeposit] = useFinalizeDepositMutation();
@@ -79,14 +76,24 @@ export default function CreatePhononModal({
                     hideModal();
                   }
                 })
-                .catch(console.error)
+                .catch((err) => {
+                  console.error(err);
+                  const Phonon = { ...phonon, ChainID };
+                  const payload = [
+                    {
+                      Phonon,
+                      ConfirmedOnChain: false,
+                      ConfirmedOnCard: true,
+                    },
+                  ];
+                  finalizeDeposit({ payload, sessionId }).catch(console.error);
+                })
                 .finally(() => setIsPending(false));
             })
           );
         } else {
           // TODO: Show an error message to the user about MetaMask not being installed or available
           throw new Error("MetaMask is not installed.");
-          setIsPending(false);
         }
       });
   };

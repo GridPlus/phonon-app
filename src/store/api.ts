@@ -45,6 +45,9 @@ export const api = createApi({
         body: { url: `${bridgeUrl}` },
       }),
     }),
+    connectionStatus: builder.query<void, { sessionId: string }>({
+      query: ({ sessionId }) => `/cards/${sessionId}/connectionStatus`,
+    }),
     fetchPhonons: builder.query<PhononDTO[], { sessionId: string }>({
       query: ({ sessionId }) => `/cards/${sessionId}/listPhonons`,
       providesTags: ["Phonon"],
@@ -116,6 +119,7 @@ export const {
   useUnlockSessionMutation,
   usePairMutation,
   useConnectMutation,
+  useConnectionStatusQuery,
   useFetchPhononsQuery,
   useCreatePhononMutation,
   useInitDepositMutation,

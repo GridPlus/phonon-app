@@ -23,6 +23,10 @@ export const ChainContextProvider = ({
   //@ts-expect-error - todo: add ethereum module
   const ethProvider = window.ethereum as any;
 
+  ethProvider.on("connect", handleChainsChanged);
+  ethProvider.on("chainChanged", handleChainsChanged);
+  ethProvider.on("accountsChanged", handleAccountsChanged);
+
   const getMetadataForChainId = (chainId) => {
     const chainIdAsString = parseInt(
       chainId,
@@ -43,10 +47,6 @@ export const ChainContextProvider = ({
     connect,
     getMetadataForChainId,
   };
-
-  ethProvider.on("connect", handleChainsChanged);
-  ethProvider.on("chainChanged", handleChainsChanged);
-  ethProvider.on("accountsChanged", handleAccountsChanged);
 
   function handleChainsChanged(chainId) {
     console.log("chainId changed", chainId);

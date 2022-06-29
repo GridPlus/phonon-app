@@ -6,15 +6,15 @@ import {
   IonSpinner,
 } from "@ionic/react";
 import React from "react";
-import { useParams } from "react-router-dom";
 import CreatePhononButton from "../components/CreatePhononButton";
 import PhononListItem from "../components/PhononListItem";
 import ReceivePhononButton from "../components/ReceivePhononButton";
+import { useSession } from "../hooks/useSession";
 import Layout from "../layout/Layout";
 import { useFetchPhononsQuery } from "../store/api";
 
 const PhononsList: React.FC = () => {
-  const { sessionId } = useParams<{ sessionId: string }>();
+  const { sessionId } = useSession();
   const { data, refetch, isLoading, isFetching } = useFetchPhononsQuery({
     sessionId,
   });

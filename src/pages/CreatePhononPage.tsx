@@ -1,7 +1,6 @@
-import { IonButton, useIonRouter } from "@ionic/react";
+import { IonButton } from "@ionic/react";
 import { ethers } from "ethers";
 import React, { useState } from "react";
-import { useParams } from "react-router";
 import {
   CreatePhononFormCustom,
   CreatePhononFormCustomValues,
@@ -15,6 +14,7 @@ import {
   CreatePhononFormSuggestedValues,
 } from "../components/CreatePhononFormSuggested";
 import useChain from "../hooks/useChain";
+import { useSession } from "../hooks/useSession";
 import {
   useFinalizeDepositMutation,
   useInitDepositMutation,
@@ -23,10 +23,7 @@ import { ethToBn, ethToWei, weiToEth } from "../utils/denomination";
 import { makeChange } from "../utils/math";
 
 const CreatePhononPage: React.FC = () => {
-  const { sessionId } = useParams<{
-    sessionId: string;
-  }>();
-  const router = useIonRouter();
+  const { sessionId } = useSession();
   const [isCustomizing, setIsCustomizing] = useState(false);
   const [isPending, setIsPending] = useState(false);
   const [isMassCreating, setIsMassCreating] = useState(false);
@@ -89,10 +86,20 @@ const CreatePhononPage: React.FC = () => {
                     finalizeDeposit({ payload, sessionId }).catch(
                       console.error
                     );
-                    router.push(`/${sessionId}/`);
                   }
                 })
-                .catch(console.error)
+                .catch((err) => {
+                  console.error(err);
+                  const Phonon = { ...phonon, ChainID };
+                  const payload = [
+                    {
+                      Phonon,
+                      ConfirmedOnChain: false,
+                      ConfirmedOnCard: true,
+                    },
+                  ];
+                  finalizeDeposit({ payload, sessionId }).catch(console.error);
+                })
                 .finally(() => setIsPending(false));
             })
           );

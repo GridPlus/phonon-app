@@ -2,6 +2,7 @@ import { IonButton, IonModal } from "@ionic/react";
 import React, { useState } from "react";
 import { useParams } from "react-router";
 import useChain from "../hooks/useChain";
+import { useSession } from "../hooks/useSession";
 import { useSendPhononMutation, usePairMutation } from "../store/api";
 import { PhononDTO, SendPhononDTO } from "../types";
 import { weiToEth } from "../utils/denomination";
@@ -15,7 +16,7 @@ export default function SendPhononModal({
   hideModal: () => void;
   phonon: PhononDTO;
 }) {
-  const { sessionId } = useParams<{ sessionId: string }>();
+  const { sessionId } = useSession();
   const [cardId, setCardId] = useState("");
   const [sendPhonon, { isLoading }] = useSendPhononMutation();
   const [pair] = usePairMutation();

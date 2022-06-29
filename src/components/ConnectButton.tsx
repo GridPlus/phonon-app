@@ -2,17 +2,17 @@ import { IonButton, IonIcon } from "@ionic/react";
 import { ellipse } from "ionicons/icons";
 import React, { useState } from "react";
 import { useParams } from "react-router";
+import { useSession } from "../hooks/useSession";
 import { useConnectMutation } from "../store/api";
 
 export const ConnectButton: React.FC = () => {
-  const { sessionId } = useParams<{ sessionId: string }>();
-  const [connect] = useConnectMutation();
+  const { sessionId } = useSession();
+  const [connect, { isLoading, isSuccess }] = useConnectMutation();
   const [isConnected, setIsConnected] = useState(false);
-  const [isConnecting, setIsConnecting] = useState(false);
 
   const getLabel = () => {
-    if (isConnecting) {
-      return "Connected";
+    if (isLoading) {
+      return "Connecting";
     }
     if (isConnected) {
       return "Connected";
@@ -21,7 +21,7 @@ export const ConnectButton: React.FC = () => {
   };
 
   const getColor = () => {
-    if (isConnecting) {
+    if (isLoading) {
       return "yellow";
     }
     if (isConnected) {
@@ -36,20 +36,13 @@ export const ConnectButton: React.FC = () => {
       onClick={() => {
         if (isConnected) {
           setIsConnected(false);
-          setIsConnecting(false);
           return;
         }
-        console.log("clicked");
-        setIsConnecting(true);
         connect({ sessionId })
           .then(() => {
-            console.log("connected");
             setIsConnected(true);
           })
-          .catch(console.error)
-          .finally(() => {
-            setIsConnecting(false);
-          });
+          .catch(console.error);
       }}
     >
       {getLabel()}

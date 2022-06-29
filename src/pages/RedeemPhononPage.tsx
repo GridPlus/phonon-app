@@ -1,25 +1,23 @@
 import { useIonRouter } from "@ionic/react";
 import { ethers } from "ethers";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
 import {
   RedeemPhononFormCustom,
-  RedeemPhononFormCustomValues,
+  RedeemPhononFormCustomValues
 } from "../components/RedeemPhononFormCustom";
 import {
   RedeemPhononFormSuggested,
-  RedeemPhononFormSuggestedValues,
+  RedeemPhononFormSuggestedValues
 } from "../components/RedeemPhononFormSuggested";
 import useChain from "../hooks/useChain";
 import { usePhonons } from "../hooks/usePhonons";
+import { useSession } from "../hooks/useSession";
 import { useRedeemPhononMutation } from "../store/api";
 import { RedeemPhononDTO } from "../types";
 import { makeChangeWithPhonons } from "../utils/math";
 
 const RedeemPhononPage: React.FC = () => {
-  const { sessionId } = useParams<{
-    sessionId: string;
-  }>();
+  const { sessionId } = useSession();
   const router = useIonRouter();
   const [isCustomizing, setIsCustomizing] = useState(false);
   const [isPending, setIsPending] = useState(false);

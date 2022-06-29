@@ -1,25 +1,23 @@
 import { useIonRouter } from "@ionic/react";
 import { ethers } from "ethers";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
 import {
-  SendPhononFormCustomValues,
   SendPhononFormCustom,
+  SendPhononFormCustomValues,
 } from "../components/SendPhononFormCustom";
 import {
-  SendPhononFormSuggestedValues,
   SendPhononFormSuggested,
+  SendPhononFormSuggestedValues,
 } from "../components/SendPhononFormSuggested";
 import useChain from "../hooks/useChain";
 import { usePhonons } from "../hooks/usePhonons";
+import { useSession } from "../hooks/useSession";
 import { useConnectMutation, useSendPhononMutation } from "../store/api";
 import { SendPhononDTO } from "../types";
 import { makeChangeWithPhonons } from "../utils/math";
 
 const SendPhononPage: React.FC = () => {
-  const { sessionId } = useParams<{
-    sessionId: string;
-  }>();
+  const { sessionId } = useSession();
   const router = useIonRouter();
   const [isCustomizing, setIsCustomizing] = useState(false);
   const [isPending, setIsPending] = useState(false);

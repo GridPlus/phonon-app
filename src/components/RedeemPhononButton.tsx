@@ -2,9 +2,10 @@ import { IonButton, IonIcon, useIonRouter } from "@ionic/react";
 import { logOutOutline } from "ionicons/icons";
 import React, { useState } from "react";
 import { useParams } from "react-router";
+import { useSession } from "../hooks/useSession";
 
 export default function RedeemPhononButton() {
-  const { sessionId } = useParams<{ sessionId: string }>();
+  const { sessionId } = useSession();
   const [color, setColor] = useState("medium");
   const router = useIonRouter();
   const DEFAULT_COLOR = "medium";

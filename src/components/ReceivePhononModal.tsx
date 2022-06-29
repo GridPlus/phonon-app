@@ -2,9 +2,10 @@ import { IonButton, IonModal } from "@ionic/react";
 import React from "react";
 import { useParams } from "react-router";
 import QRCode from "qrcode.react";
+import { useSession } from "../hooks/useSession";
 
 export default function ReceivePhononModal({ isModalVisible, hideModal }: any) {
-  const { sessionId } = useParams<{ sessionId: string }>();
+  const { sessionId } = useSession();
 
   const handleSubmit = () => {
     hideModal();

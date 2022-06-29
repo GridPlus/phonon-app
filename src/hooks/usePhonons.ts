@@ -2,10 +2,11 @@ import { useParams } from "react-router";
 import { useFetchPhononsQuery } from "../store/api";
 import { reduceDenominations } from "./../utils/math";
 import useChain from "./useChain";
+import { useSession } from "./useSession";
 
 export const usePhonons = () => {
   const { chain } = useChain();
-  const { sessionId } = useParams<{ sessionId: string }>();
+  const { sessionId } = useSession();
   const { data } = useFetchPhononsQuery({
     sessionId,
   });
