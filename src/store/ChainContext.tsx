@@ -32,7 +32,6 @@ export const ChainContextProvider = ({
       chainId,
       16
     ).toString() as keyof typeof CHAINS;
-    console.log(chainIdAsString);
     try {
       return CHAINS[chainIdAsString];
     } catch (err) {
@@ -44,12 +43,11 @@ export const ChainContextProvider = ({
     currentAccount,
     chainId,
     currentChain,
-    connect,
+    authenticate,
     getMetadataForChainId,
   };
 
   function handleChainsChanged(chainId) {
-    console.log("chainId changed", chainId);
     if (!chainId) {
       // MetaMask is locked or the user has not connected any chainId
       console.log("Please connect to MetaMask.");
@@ -60,7 +58,6 @@ export const ChainContextProvider = ({
   }
 
   function handleAccountsChanged(accounts) {
-    console.log("accounts changed", accounts);
     if (accounts.length === 0) {
       // MetaMask is locked or the user has not connected any accounts
       console.log("Please connect to MetaMask.");
@@ -70,7 +67,7 @@ export const ChainContextProvider = ({
     }
   }
 
-  function connect() {
+  function authenticate() {
     ethProvider
       .request({ method: "eth_chainId" })
       .then(handleChainsChanged)

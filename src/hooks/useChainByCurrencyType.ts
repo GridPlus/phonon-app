@@ -1,11 +1,11 @@
-import { CHAINS, DEFAULT_CHAIN } from "../constants/chains";
+import { CHAINS } from "../constants/chains";
 
 const useChainByCurrencyType = (currencyType: number) => {
   const chain = Object.entries(CHAINS).find(
     ([, chain]) => chain.CurrencyType === currencyType
   );
   if (!chain) {
-    return { chain: DEFAULT_CHAIN };
+    return { chain: null };
   }
   return { chain: chain[1] };
 };

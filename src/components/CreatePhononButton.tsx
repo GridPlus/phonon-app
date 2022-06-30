@@ -1,7 +1,6 @@
-import { IonButton, IonIcon, useIonRouter } from "@ionic/react";
+import { IonButton, IonIcon } from "@ionic/react";
 import { addSharp } from "ionicons/icons";
 import React from "react";
-import { useParams } from "react-router";
 import { useModal } from "../hooks/useModal";
 import CreatePhononModal from "./CreatePhononModal";
 

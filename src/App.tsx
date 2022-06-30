@@ -16,7 +16,6 @@ import "@ionic/react/css/typography.css";
 import React from "react";
 import { Route } from "react-router-dom";
 import "./output.css";
-import CreatePhononPage from "./pages/CreatePhononPage";
 import PhononsList from "./pages/PhononsList";
 import SessionsList from "./pages/SessionsList";
 /* Theme variables */
@@ -33,7 +32,6 @@ const App: React.FC = () => {
         <IonRouterOutlet id="main">
           <Route exact path="/" component={SessionsList} />
           <Route exact path="/:sessionId" component={PhononsList} />
-          <Route exact path="/:sessionId/create" component={CreatePhononPage} />
         </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>

@@ -1,14 +1,16 @@
 import { IonButton, IonIcon } from "@ionic/react";
 import { ellipse } from "ionicons/icons";
-import React, { useState } from "react";
-import { useParams } from "react-router";
+import React from "react";
 import { useSession } from "../hooks/useSession";
-import { useConnectMutation } from "../store/api";
+import { useConnectionStatusQuery, useConnectMutation } from "../store/api";
 
 export const ConnectButton: React.FC = () => {
   const { sessionId } = useSession();
-  const [connect, { isLoading, isSuccess }] = useConnectMutation();
-  const [isConnected, setIsConnected] = useState(false);
+  const [connect, { isLoading }] = useConnectMutation();
+  const { data: isConnected } = useConnectionStatusQuery(
+    { sessionId },
+    { pollingInterval: 1000 }
+  );
 
   const getLabel = () => {
     if (isLoading) {
@@ -34,15 +36,7 @@ export const ConnectButton: React.FC = () => {
     <IonButton
       shape="round"
       onClick={() => {
-        if (isConnected) {
-          setIsConnected(false);
-          return;
-        }
-        connect({ sessionId })
-          .then(() => {
-            setIsConnected(true);
-          })
-          .catch(console.error);
+        connect({ sessionId }).catch(console.error);
       }}
     >
       {getLabel()}

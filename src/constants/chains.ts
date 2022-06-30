@@ -1,29 +1,17 @@
 import { faBtc, faEthereum } from "@fortawesome/free-brands-svg-icons";
 import { faQuestionCircle } from "@fortawesome/free-regular-svg-icons";
 
-type Chain = {
+export type Chain = {
   icon: typeof faBtc;
   ticker: string;
   name: string;
   textColor: string;
-  bgColor?: string;
+  bgColor: string;
   symbol: string;
   CurrencyType: number;
   apiRoute: string;
   baseUrl: string;
   isTestnet: boolean;
-};
-export const DEFAULT_CHAIN = {
-  apiRoute: "api?module=contract&action=getabi",
-  baseUrl: "https://api.etherscan.io",
-  icon: faEthereum,
-  ticker: "ETH",
-  name: "Ethereum",
-  textColor: "text-indigo-300",
-  bgColor: "bg-indigo-300",
-  symbol: "Ξ",
-  CurrencyType: 2,
-  isTestnet: false,
 };
 
 export const CHAINS: { [key: string]: Chain } = {

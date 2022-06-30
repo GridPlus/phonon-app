@@ -1,12 +1,7 @@
-import {
-  IonBackButton,
-  IonButtons,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
-} from "@ionic/react";
+import { IonButtons, IonHeader, IonTitle, IonToolbar } from "@ionic/react";
 import React from "react";
 import icon from "../assets/icon.svg";
+import CardLockButton from "../components/CardLockButton";
 import { ConnectButton } from "../components/ConnectButton";
 import { MetaMaskAuth } from "../components/MetaMaskAuth";
 
@@ -15,7 +10,7 @@ const Header: React.FC = () => {
     <IonHeader>
       <IonToolbar>
         <IonButtons slot="start">
-          <IonBackButton defaultHref="" />
+          <CardLockButton />
           <ConnectButton />
         </IonButtons>
         <IonTitle>

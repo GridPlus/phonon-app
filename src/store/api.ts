@@ -45,7 +45,7 @@ export const api = createApi({
         body: { url: `${bridgeUrl}` },
       }),
     }),
-    connectionStatus: builder.query<void, { sessionId: string }>({
+    connectionStatus: builder.query<boolean, { sessionId: string }>({
       query: ({ sessionId }) => `/cards/${sessionId}/connectionStatus`,
     }),
     fetchPhonons: builder.query<PhononDTO[], { sessionId: string }>({

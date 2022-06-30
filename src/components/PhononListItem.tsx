@@ -7,11 +7,16 @@ import { PhononDTO } from "../types";
 import { abbreviateHash } from "../utils/addresses";
 import { weiToEth } from "../utils/denomination";
 import { isGreaterThan } from "../utils/math";
+import ChainBadge from "./ChainBadge";
 import RedeemPhononButton from "./RedeemPhononButton";
 import SendPhononButton from "./SendPhononButton";
 
 const PhononListItem: React.FC<{ phonon: PhononDTO }> = ({ phonon }) => {
   const { chain } = useChainByCurrencyType(phonon.CurrencyType);
+
+  if (!chain) {
+    throw new Error("Chain unavailable. Please reload.");
+  }
 
   return (
     <IonItem>
@@ -32,10 +37,10 @@ const PhononListItem: React.FC<{ phonon: PhononDTO }> = ({ phonon }) => {
           {chain.ticker}
         </h2>
         <p>{abbreviateHash(phonon.PubKey)}</p>
-        <p>CHAIN ID: {phonon.ChainID}</p>
+        <ChainBadge chain={chain} />
       </IonLabel>
       <SendPhononButton phonon={phonon} />
-      <RedeemPhononButton />
+      <RedeemPhononButton phonon={phonon} />
     </IonItem>
   );
 };

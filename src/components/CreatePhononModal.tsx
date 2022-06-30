@@ -2,7 +2,6 @@ import { IonButton, IonModal } from "@ionic/react";
 import { ethers } from "ethers";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { CreatePhononFormSingleValues } from "../components/CreatePhononFormSingle";
 import useChain from "../hooks/useChain";
 import { useSession } from "../hooks/useSession";
 import {
@@ -11,6 +10,10 @@ import {
 } from "../store/api";
 import { ethToBn, ethToWei, weiToEth } from "../utils/denomination";
 import { isValidPhononDenomination } from "../utils/validation";
+
+export type CreatePhononFormData = {
+  amount: string;
+};
 
 export default function CreatePhononModal({
   isModalVisible,
@@ -22,11 +25,21 @@ export default function CreatePhononModal({
   const { sessionId } = useSession();
   const [isPending, setIsPending] = useState(false);
   const [initDeposit] = useInitDepositMutation();
+  const [errorMessage, setErrorMessage] = useState("");
   const [finalizeDeposit] = useFinalizeDepositMutation();
   const { chain, chainId } = useChain();
+  const destroyModal = () => {
+    setErrorMessage("");
+    hideModal();
+    reset();
+  };
 
-  const onSubmitSingle = (data: CreatePhononFormSingleValues) =>
-    onSubmit([{ amount: 1, denomination: data.amount }]);
+  const onSubmitSingle = (data: CreatePhononFormData) =>
+    onSubmit([{ amount: 1, denomination: data.amount }])
+      .catch((err) => {
+        setErrorMessage(err.message);
+      })
+      .finally(() => setIsPending(false));
 
   const onSubmit = async (
     data: {
@@ -35,6 +48,12 @@ export default function CreatePhononModal({
     }[]
   ) => {
     setIsPending(true);
+    setErrorMessage("");
+    if (!chain) {
+      throw new Error(
+        "Chain Unavailable. Please reauthenticate with MetaMask."
+      );
+    }
     const Denominations = data.flatMap((d) => {
       const denomination = ethToWei(d.denomination);
       const arr = Array(d.amount);
@@ -73,11 +92,13 @@ export default function CreatePhononModal({
                     await finalizeDeposit({ payload, sessionId }).catch(
                       console.error
                     );
-                    hideModal();
+                    destroyModal();
                   }
                 })
                 .catch((err) => {
                   console.error(err);
+                  console.error("message", err.message);
+                  setErrorMessage(err.message);
                   const Phonon = { ...phonon, ChainID };
                   const payload = [
                     {
@@ -101,14 +122,18 @@ export default function CreatePhononModal({
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
-  } = useForm<CreatePhononFormSingleValues>();
+  } = useForm<CreatePhononFormData>();
 
   return (
-    <IonModal isOpen={isModalVisible} onDidDismiss={hideModal}>
+    <IonModal isOpen={isModalVisible} onDidDismiss={destroyModal}>
       <div className="flex flex-col content-center justify-center h-full mx-10">
         <p className="text-xl font-bold text-center text-gray-300 uppercase">
-          Create {chain.name} Phonon
+          Create {chain?.name} Phonon
+        </p>
+        <p className="font-bold text-center text-red-400 uppercase mt-2">
+          {errorMessage}
         </p>
         <form
           className="flex flex-col mt-10 gap-10"
@@ -146,12 +171,11 @@ export default function CreatePhononModal({
             Create
           </IonButton>
           <IonButton
-            key="submit"
             size="large"
             expand="full"
             fill="clear"
             color="medium"
-            onClick={hideModal}
+            onClick={destroyModal}
           >
             CANCEL
           </IonButton>
