@@ -27,12 +27,20 @@ export default function CreatePhononModal({
   const [initDeposit] = useInitDepositMutation();
   const [errorMessage, setErrorMessage] = useState("");
   const [finalizeDeposit] = useFinalizeDepositMutation();
-  const { chain, chainId } = useChain();
+  const { chain, chainId, isAuthenticated } = useChain();
+
   const destroyModal = () => {
     setErrorMessage("");
     hideModal();
     reset();
   };
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<CreatePhononFormData>();
 
   const onSubmitSingle = (data: CreatePhononFormData) =>
     onSubmit([{ amount: 1, denomination: data.amount }])
@@ -53,6 +61,9 @@ export default function CreatePhononModal({
       throw new Error(
         "Chain Unavailable. Please reauthenticate with MetaMask."
       );
+    }
+    if (!isAuthenticated) {
+      throw new Error("Must be authenticated with MetaMask.");
     }
     const Denominations = data.flatMap((d) => {
       const denomination = ethToWei(d.denomination);
@@ -82,6 +93,7 @@ export default function CreatePhononModal({
                 .then(async (response) => {
                   if (response) {
                     const Phonon = { ...phonon, ChainID };
+                    console.log({ Phonon });
                     const payload = [
                       {
                         Phonon,
@@ -97,7 +109,6 @@ export default function CreatePhononModal({
                 })
                 .catch((err) => {
                   console.error(err);
-                  console.error("message", err.message);
                   setErrorMessage(err.message);
                   const Phonon = { ...phonon, ChainID };
                   const payload = [
@@ -118,13 +129,6 @@ export default function CreatePhononModal({
         }
       });
   };
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<CreatePhononFormData>();
 
   return (
     <IonModal isOpen={isModalVisible} onDidDismiss={destroyModal}>
@@ -168,7 +172,7 @@ export default function CreatePhononModal({
             color="primary"
             disabled={isPending}
           >
-            Create
+            CREATE
           </IonButton>
           <IonButton
             size="large"
@@ -176,6 +180,7 @@ export default function CreatePhononModal({
             fill="clear"
             color="medium"
             onClick={destroyModal}
+            disabled={isPending}
           >
             CANCEL
           </IonButton>

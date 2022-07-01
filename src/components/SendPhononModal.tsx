@@ -1,11 +1,20 @@
 import { IonButton, IonModal } from "@ionic/react";
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import useChainByCurrencyType from "../hooks/useChainByCurrencyType";
 import { useIsConnected } from "../hooks/useIsConnected";
 import { useSession } from "../hooks/useSession";
-import { usePairMutation, useSendPhononMutation } from "../store/api";
+import {
+  useFetchPhononsQuery,
+  usePairMutation,
+  useSendPhononMutation,
+} from "../store/api";
 import { PhononDTO, SendPhononDTO } from "../types";
 import { weiToEth } from "../utils/denomination";
+
+export type SendPhononFormData = {
+  cardId: string;
+};
 
 export default function SendPhononModal({
   isModalVisible,
@@ -17,52 +26,72 @@ export default function SendPhononModal({
   phonon: PhononDTO;
 }) {
   const { sessionId } = useSession();
-  const [cardId, setCardId] = useState("");
-  const [sendPhonon, { isLoading }] = useSendPhononMutation();
-  const [pair] = usePairMutation();
+  const [errorMessage, setErrorMessage] = useState("");
+  const [sendPhonon, { isLoading: isSending }] = useSendPhononMutation();
+  const [pair, { isLoading: isPairing }] = usePairMutation();
   const { chain } = useChainByCurrencyType(phonon.CurrencyType);
   const { isConnected } = useIsConnected();
 
-  const onSubmit = async (payload: SendPhononDTO) => {
-    if (payload.length) {
-      if (!isConnected) {
-        throw new Error("Must be connected.");
-      }
-      await pair({ cardId, sessionId })
-        .then(() => {
-          return sendPhonon({ payload, sessionId })
-            .then(hideModal)
-            .catch(console.error);
-        })
-        .catch(console.error);
+  const isLoading = isSending || isPairing;
+
+  const destroyModal = () => {
+    setErrorMessage("");
+    hideModal();
+    reset();
+  };
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<SendPhononFormData>();
+
+  const onSubmit = async (data: SendPhononFormData, event) => {
+    event.preventDefault();
+    if (!isConnected) {
+      throw new Error("Must be connected.");
     }
-  };
-
-  const handleSubmit = () => {
-    return onSubmit([phonon]);
-  };
-
-  const onChangeCardId = (value: string) => {
-    setCardId(value);
+    const payload: SendPhononDTO = [phonon];
+    await pair({ cardId: data.cardId, sessionId })
+      .then(() => {
+        sendPhonon({ payload, sessionId })
+          .then(destroyModal)
+          .catch((err) => {
+            setErrorMessage(err.message);
+            console.error(err);
+          });
+      })
+      .catch((err) => {
+        setErrorMessage(err.message);
+        console.error(err);
+      });
   };
 
   return (
-    <IonModal isOpen={isModalVisible} onDidDismiss={hideModal}>
+    <IonModal isOpen={isModalVisible} onDidDismiss={destroyModal}>
       <div className="flex flex-col content-center justify-center h-full mx-10">
         <p className="text-xl font-bold text-center text-gray-300 uppercase">
           Send {chain?.name} Phonon
+        </p>
+        <p className="font-bold text-center text-red-400 uppercase mt-2">
+          {errorMessage}
         </p>
         <p className="text-l font-bold text-center text-gray-400 uppercase">
           {`${weiToEth(phonon.Denomination)} ${chain ? chain.ticker : "ERR"}`}
         </p>
 
-        <form className="flex flex-col mt-10 gap-10" onSubmit={handleSubmit}>
+        <form
+          className="flex flex-col mt-10 gap-10"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <input
             className="text-bold p-2 text-xl bg-zinc-800 shadow-inner"
             placeholder="Recipient Card ID"
-            onChange={(event) => onChangeCardId(event.target.value)}
-            value={cardId}
             disabled={isLoading}
+            {...register("cardId", {
+              required: true,
+            })}
           />
           <IonButton
             key="submit"
@@ -73,14 +102,15 @@ export default function SendPhononModal({
             color="primary"
             disabled={isLoading}
           >
-            Send
+            SEND
           </IonButton>
           <IonButton
             size="large"
             expand="full"
             fill="clear"
             color="medium"
-            onClick={hideModal}
+            onClick={destroyModal}
+            disabled={isLoading}
           >
             CANCEL
           </IonButton>

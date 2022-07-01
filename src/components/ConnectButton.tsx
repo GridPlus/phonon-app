@@ -9,7 +9,7 @@ export const ConnectButton: React.FC = () => {
   const [connect, { isLoading }] = useConnectMutation();
   const { data: isConnected } = useConnectionStatusQuery(
     { sessionId },
-    { pollingInterval: 1000 }
+    { pollingInterval: 5000 }
   );
 
   const getLabel = () => {

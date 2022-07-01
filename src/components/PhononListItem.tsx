@@ -1,7 +1,6 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IonAvatar, IonItem, IonLabel, IonSpinner } from "@ionic/react";
+import { IonItem, IonLabel, IonSpinner } from "@ionic/react";
 import React from "react";
-import useChainByCurrencyType from "../hooks/useChainByCurrencyType";
+import { CHAINS } from "../constants/chains";
 import "../index.css";
 import { PhononDTO } from "../types";
 import { abbreviateHash } from "../utils/addresses";
@@ -11,36 +10,48 @@ import ChainBadge from "./ChainBadge";
 import RedeemPhononButton from "./RedeemPhononButton";
 import SendPhononButton from "./SendPhononButton";
 
-const PhononListItem: React.FC<{ phonon: PhononDTO }> = ({ phonon }) => {
-  const { chain } = useChainByCurrencyType(phonon.CurrencyType);
+const PhononListItem: React.FC<{
+  phonon: PhononDTO;
+  selectedPhonon: PhononDTO | undefined;
+  setSelectedPhonon: React.Dispatch<
+    React.SetStateAction<PhononDTO | undefined>
+  >;
+}> = ({ phonon, selectedPhonon, setSelectedPhonon }) => {
+  const chain = CHAINS[phonon.ChainID] ?? null;
+  const isSelected = selectedPhonon === phonon;
 
-  if (!chain) {
-    throw new Error("Chain unavailable. Please reload.");
-  }
+  const isChainValid = !!chain;
 
   return (
-    <IonItem>
-      <IonAvatar slot="start">
-        <FontAwesomeIcon
-          icon={chain.icon}
-          size="2x"
-          className={chain.textColor}
-        />
-      </IonAvatar>
+    <IonItem
+      button
+      detail={false}
+      onClick={() => {
+        if (selectedPhonon === phonon) {
+          setSelectedPhonon(undefined);
+        } else {
+          setSelectedPhonon(phonon);
+        }
+      }}
+      color={isSelected ? "dark" : ""}
+      fill={isSelected ? "outline" : undefined}
+    >
       <IonLabel>
-        <h2>
-          {isGreaterThan(phonon.Denomination, 0) ? (
-            weiToEth(phonon.Denomination)
-          ) : (
-            <IonSpinner />
-          )}{" "}
-          {chain.ticker}
-        </h2>
-        <p>{abbreviateHash(phonon.PubKey)}</p>
-        <ChainBadge chain={chain} />
+        <div className="flex items-center">
+          <div>{isChainValid ? <ChainBadge chain={chain} /> : null}</div>
+          <div>
+            <h2 className="text-md uppercase font-black">
+              {isGreaterThan(phonon.Denomination, 0) ? (
+                weiToEth(phonon.Denomination)
+              ) : (
+                <IonSpinner />
+              )}{" "}
+              {chain?.ticker}
+            </h2>
+            <p className="text-slate-400">{abbreviateHash(phonon.PubKey)}</p>
+          </div>
+        </div>
       </IonLabel>
-      <SendPhononButton phonon={phonon} />
-      <RedeemPhononButton phonon={phonon} />
     </IonItem>
   );
 };

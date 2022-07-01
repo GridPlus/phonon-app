@@ -51,12 +51,12 @@ export const CHAINS: { [key: string]: Chain } = {
     CurrencyType: 2,
     isTestnet: true,
   },
-  PHONON: {
+  "0": {
     apiRoute: "api?module=contract&action=getabi",
     baseUrl: "https://api.etherscan.io",
     icon: faQuestionCircle,
     ticker: "PHONON",
-    name: "PHONON",
+    name: "Native",
     textColor: "text-cyan-300",
     bgColor: "bg-cyan-300",
     symbol: "PHONON",

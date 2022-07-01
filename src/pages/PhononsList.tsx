@@ -1,20 +1,24 @@
 import {
-  IonButtons,
   IonList,
   IonRefresher,
   IonRefresherContent,
   IonSpinner,
 } from "@ionic/react";
-import React from "react";
+import React, { useState } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 import CreatePhononButton from "../components/CreatePhononButton";
 import PhononListItem from "../components/PhononListItem";
 import ReceivePhononButton from "../components/ReceivePhononButton";
+import RedeemPhononButton from "../components/RedeemPhononButton";
+import SendPhononButton from "../components/SendPhononButton";
 import { useSession } from "../hooks/useSession";
 import Layout from "../layout/Layout";
 import { useFetchPhononsQuery } from "../store/api";
+import { PhononDTO } from "../types";
 
 const PhononsList: React.FC = () => {
   const { sessionId } = useSession();
+  const [selectedPhonon, setSelectedPhonon] = useState<PhononDTO>();
   const { data, refetch, isLoading, isFetching } = useFetchPhononsQuery({
     sessionId,
   });
@@ -26,10 +30,10 @@ const PhononsList: React.FC = () => {
 
   return (
     <Layout>
-      <div className="flex my-2 justify-evenly">
-        <IonButtons slot="primary">
-          <CreatePhononButton />
-        </IonButtons>
+      <div className="flex my-3 justify-evenly items-center">
+        <CreatePhononButton />
+        <SendPhononButton phonon={selectedPhonon} />
+        <RedeemPhononButton phonon={selectedPhonon} />
         <ReceivePhononButton />
       </div>
 
@@ -47,8 +51,21 @@ const PhononsList: React.FC = () => {
             <IonRefresherContent></IonRefresherContent>
           </IonRefresher>
           <IonList>
-            {data?.map((item) => (
-              <PhononListItem phonon={item} key={item.PubKey} />
+            {data?.map((p) => (
+              <ErrorBoundary
+                FallbackComponent={({ error }) => (
+                  <div className="p-3 uppercase font-black">
+                    <p className="text-xs">Failed to load phonon</p>
+                    <p className="text-xs text-red-400">{error.message}</p>
+                  </div>
+                )}
+                key={p.PubKey}
+              >
+                <PhononListItem
+                  phonon={p}
+                  {...{ selectedPhonon, setSelectedPhonon }}
+                />
+              </ErrorBoundary>
             ))}
           </IonList>
         </>

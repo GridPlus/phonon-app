@@ -22,6 +22,9 @@ export const ChainContextProvider = ({
 
   //@ts-expect-error - todo: add ethereum module
   const ethProvider = window.ethereum as any;
+  if (!ethProvider) {
+    throw new Error("No Ethereum provider found.");
+  }
 
   ethProvider.on("connect", handleChainsChanged);
   ethProvider.on("chainChanged", handleChainsChanged);

@@ -22,6 +22,7 @@ export const api = createApi({
   endpoints: (builder) => ({
     fetchSessions: builder.query<{ Sessions: Session[] }, void>({
       query: () => "listSessions",
+      providesTags: ["Session"],
     }),
     unlockSession: builder.mutation<void, { sessionId: string; pin: string }>({
       query: ({ sessionId, pin }) => ({
@@ -88,7 +89,7 @@ export const api = createApi({
         method: "POST",
         body: payload,
       }),
-      invalidatesTags: ["Phonon"],
+      // invalidatesTags: ["Phonon"],
     }),
     initDeposit: builder.mutation<
       PhononDTO[],

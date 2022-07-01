@@ -14,6 +14,7 @@ import "@ionic/react/css/text-alignment.css";
 import "@ionic/react/css/text-transformation.css";
 import "@ionic/react/css/typography.css";
 import React from "react";
+import { ErrorBoundary } from "react-error-boundary";
 import { Route } from "react-router-dom";
 import "./output.css";
 import PhononsList from "./pages/PhononsList";

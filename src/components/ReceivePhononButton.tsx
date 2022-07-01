@@ -9,12 +9,7 @@ export default function ReceivePhononButton() {
 
   return (
     <>
-      <IonButton
-        fill="outline"
-        color="secondary"
-        onClick={showModal}
-        className="shadow-lg shadow-teal-300/20"
-      >
+      <IonButton fill="outline" color="secondary" onClick={showModal}>
         <IonIcon slot="end" icon={qrCode} />
         Receive
       </IonButton>
