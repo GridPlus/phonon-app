@@ -49,6 +49,7 @@ const SetSessionNameModal: React.FC<Props> = ({
             <IonInput
               value={newName}
               placeholder="Name"
+              className="text-white"
               type="text"
               onIonChange={(e) => setNewName(e?.detail?.value ?? "")}
             ></IonInput>

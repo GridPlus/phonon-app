@@ -86,7 +86,7 @@ export default function SendPhononModal({
           onSubmit={handleSubmit(onSubmit)}
         >
           <input
-            className="text-bold p-2 text-xl bg-zinc-800 shadow-inner"
+            className="text-bold p-2 text-xl text-white bg-zinc-800 shadow-inner"
             placeholder="Recipient Card ID"
             disabled={isLoading}
             {...register("cardId", {

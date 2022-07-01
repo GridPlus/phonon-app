@@ -144,7 +144,7 @@ export default function CreatePhononModal({
           onSubmit={handleSubmit(onSubmitSingle)}
         >
           <input
-            className="text-bold p-2 text-xl bg-zinc-800 shadow-inner"
+            className="text-bold p-2 text-xl text-white bg-zinc-800 shadow-inner"
             placeholder="Amount"
             disabled={isPending}
             {...register("amount", {
