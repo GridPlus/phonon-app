@@ -36,7 +36,7 @@ export const api = createApi({
       query: ({ cardId, sessionId }) => ({
         url: `cards/${sessionId}/pair`,
         method: "POST",
-        body: { url: `${bridgeUrl}${cardId}` },
+        body: { CardID: `${cardId}` },
       }),
     }),
     connect: builder.mutation<void, { sessionId: string }>({
