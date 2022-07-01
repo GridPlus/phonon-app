@@ -127,6 +127,11 @@ export default function CreatePhononModal({
           // TODO: Show an error message to the user about MetaMask not being installed or available
           throw new Error("MetaMask is not installed.");
         }
+      })
+      .catch((err) => {
+        console.error(err);
+        if (err.message) setErrorMessage(err.message);
+        else if (err.data) setErrorMessage(err.data);
       });
   };
 
