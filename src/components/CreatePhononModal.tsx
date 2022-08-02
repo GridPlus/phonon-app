@@ -10,6 +10,7 @@ import {
   useInitDepositMutation,
 } from "../store/api";
 import { ethToBn, ethToWei, weiToEth } from "../utils/denomination";
+import FormErrorText from "./FormErrorText";
 
 export type CreatePhononFormData = {
   amount: string;
@@ -151,14 +152,10 @@ export default function CreatePhononModal({
           onSubmit={handleSubmit(onSubmitSingle)}
         >
           {errors?.amount?.type === "required" && (
-            <p className="text-bold p-2 text-xl text-red-400 shadow-inner">
-              Amount is required.
-            </p>
+            <FormErrorText>Amount is required.</FormErrorText>
           )}
           {errors?.amount?.type === "validate" && (
-            <p className="text-bold p-2 text-xl text-red-400 shadow-inner">
-              Invalid denomination.
-            </p>
+            <FormErrorText>Invalid denomination.</FormErrorText>
           )}
           <input
             className="text-bold p-2 text-xl text-white bg-zinc-800 shadow-inner"

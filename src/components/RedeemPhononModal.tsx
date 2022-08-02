@@ -5,6 +5,7 @@ import { CHAINS } from "../constants/chains";
 import { useSession } from "../hooks/useSession";
 import { useRedeemPhononMutation } from "../store/api";
 import { weiToEth } from "../utils/denomination";
+import FormErrorText from "./FormErrorText";
 
 export type RedeemPhononFormData = {
   redeemAddress: string;
@@ -79,9 +80,7 @@ export default function RedeemPhononModal({
             })}
           />
           {errors?.redeemAddress?.type === "required" && (
-            <p className="text-bold p-2 text-xl text-red-400 shadow-inner">
-              Redeem address is required
-            </p>
+            <FormErrorText>Redeem address is required</FormErrorText>
           )}
           <IonButton
             key="submit"
