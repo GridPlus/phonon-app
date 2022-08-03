@@ -128,6 +128,13 @@ export const api = createApi({
       }),
       invalidatesTags: ["Phonon"],
     }),
+    createMockCard: builder.mutation<void, void>({
+      query: () => ({
+        url: `genMock`,
+        method: "GET",
+      }),
+      invalidatesTags: ["Session"],
+    }),
   }),
 });
 
@@ -147,4 +154,5 @@ export const {
   useSetDescriptorMutation,
   useRedeemPhononMutation,
   useSendPhononMutation,
+  useCreateMockCardMutation,
 } = api;
